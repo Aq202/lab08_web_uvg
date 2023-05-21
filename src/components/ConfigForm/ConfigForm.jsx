@@ -7,12 +7,19 @@ import InputSelect from '../InputSelect/InputSelect';
 import InputCheckbox from '../InputCheckbox/InputCheckbox';
 import WhiteButton from '../WhiteButton/WhiteButton';
 import theme1Image from '../../assets/theme1/themeImage.jpg';
+import theme2Image from '../../assets/theme2/themeImage.jpg';
+import theme3Image from '../../assets/theme3/themeImage.jpg';
 import OptionsPicker from '../OptionsPicker/OptionsPicker';
 
-const skinOptions = [{ title: 'Personaje 1', value: 1 }];
+const skinOptions = [
+  { title: 'Hombre', value: 1 },
+  { title: 'Mujer', value: 2 },
+  { title: 'Niño', value: 3 },
+];
 const themeOptions = [
   { title: 'La mina', value: 1, image: theme1Image },
-  { title: 'La mina', value: 2, image: theme1Image },
+  { title: 'El desierto', value: 2, image: theme2Image },
+  { title: 'El campo', value: 3, image: theme3Image },
 ];
 
 function ConfigForm() {

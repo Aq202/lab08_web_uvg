@@ -9,8 +9,12 @@ import useFetch from '../../hooks/useFetch';
 import StoneMazeThemeSwitch from '../StoneMazeThemeSwitch/StoneMazeThemeSwitch';
 import Player from '../Player/Player';
 import consts from '../../utils/consts';
+import BeachThemeSwitch from '../BeachThemeSwitch/BeachThemeSwitch';
+import CountryThemeSwitch from '../CountryThemeSwitch/CountryThemeSwitch';
 
-function Maze({ w, h }) {
+function Maze({
+  w, h, skin, theme,
+}) {
   const { callFetch, result } = useFetch();
 
   const [maze, setMaze] = useState(null);
@@ -124,17 +128,45 @@ function Maze({ w, h }) {
       }}
       ref={autoFocus}
     >
-      {maze
+      {maze && (theme === 1 || ![1, 2, 3].includes(theme))
         && maze.map((row, indexRow) => row.map((item, indexCol) => (item !== 'p' && item !== consts.win ? (
           <StoneMazeThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item} />
         ) : item === 'p' ? (
           <StoneMazeThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item}>
-            <Player move={keyPressed?.val} refProp={playerRef} />
+            <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
           </StoneMazeThemeSwitch>
         ) : (
           <StoneMazeThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
-            <Player move={keyPressed?.val} />
+            <Player move={keyPressed?.val} skin={skin} />
           </StoneMazeThemeSwitch>
+        )
+        )))}
+
+      {maze && (theme === 2)
+        && maze.map((row, indexRow) => row.map((item, indexCol) => (item !== 'p' && item !== consts.win ? (
+          <BeachThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item} />
+        ) : item === 'p' ? (
+          <BeachThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item}>
+            <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
+          </BeachThemeSwitch>
+        ) : (
+          <BeachThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
+            <Player move={keyPressed?.val} skin={skin} />
+          </BeachThemeSwitch>
+        )
+        )))}
+
+      {maze && (theme === 3)
+        && maze.map((row, indexRow) => row.map((item, indexCol) => (item !== 'p' && item !== consts.win ? (
+          <CountryThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item} />
+        ) : item === 'p' ? (
+          <CountryThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type={item}>
+            <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
+          </CountryThemeSwitch>
+        ) : (
+          <CountryThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
+            <Player move={keyPressed?.val} skin={skin} />
+          </CountryThemeSwitch>
         )
         )))}
     </div>
@@ -146,6 +178,11 @@ export default Maze;
 Maze.propTypes = {
   w: PropTypes.number.isRequired,
   h: PropTypes.number.isRequired,
+  skin: PropTypes.number,
+  theme: PropTypes.number,
 };
 
-Maze.defaultProps = {};
+Maze.defaultProps = {
+  skin: 1,
+  theme: 1,
+};
