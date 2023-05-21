@@ -5,4 +5,9 @@ import eslint from 'vite-plugin-eslint';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [eslint(), react()],
+  server: {
+    proxy: {
+      '/maze': 'https://maze.uvgenios.online',
+    },
+  },
 });

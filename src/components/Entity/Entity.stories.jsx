@@ -18,5 +18,5 @@ export default {
 
 export const AsPlayer = Template.bind({});
 AsPlayer.args = {
-  val: 'P',
+  image: '',
 };

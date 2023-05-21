@@ -1,0 +1,11 @@
+.coverWidth{
+  width: 100%;
+}
+
+.coverHeight{
+  height: 100%;
+}
+
+.entity{
+  position: relative;
+}
