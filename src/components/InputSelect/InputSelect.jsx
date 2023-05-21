@@ -29,7 +29,7 @@ InputSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
   className: PropTypes.string,

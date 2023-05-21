@@ -4,6 +4,9 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
 import styles from './Maze.module.css';
 import useFetch from '../../hooks/useFetch';
 import StoneMazeThemeSwitch from '../StoneMazeThemeSwitch/StoneMazeThemeSwitch';
@@ -12,17 +15,22 @@ import consts from '../../utils/consts';
 import BeachThemeSwitch from '../BeachThemeSwitch/BeachThemeSwitch';
 import CountryThemeSwitch from '../CountryThemeSwitch/CountryThemeSwitch';
 
+momentDurationFormatSetup(moment);
+
 function Maze({
-  w, h, skin, theme,
+  w, h, skin, theme, time,
 }) {
-  const { callFetch, result } = useFetch();
+  const { callFetch, result, loading } = useFetch();
 
   const [maze, setMaze] = useState(null);
   const [keyPressed, setKeyPressed] = useState(null);
   const [playerPosition, setPlayerPosition] = useState({ row: 1, col: 1 });
   const [win, setWin] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(time);
+  const [timeLeftCounter, setTimeLeftCounter] = useState(null);
 
   const playerRef = useRef();
+  const navigate = useNavigate();
 
   const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
 
@@ -93,6 +101,19 @@ function Maze({
     if (maze[newRow][newCol] === 'g') setWin(true);
   };
 
+  const timeoutHandler = (initialTime) => {
+    const interval = setInterval(() => {
+      setTimeLeft((lastVal) => ((typeof lastVal !== 'number') ? initialTime : lastVal - 1));
+    }, 1000);
+
+    setTimeLeftCounter(interval);
+  };
+
+  const getTimeLeftInFormat = () => {
+    const duration = moment.duration(timeLeft, 'seconds');
+    return duration.format('HH:mm:ss');
+  };
+
   useEffect(() => {
     getMaze(w, h);
   }, []);
@@ -111,6 +132,22 @@ function Maze({
     playerRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [maze]);
 
+  useEffect(() => {
+    // colocar el timer
+    if (!result || typeof time !== 'number') return;
+    timeoutHandler(time);
+  }, [time, result]);
+
+  useEffect(() => {
+    if (!win) return;
+    clearTimeout(timeLeftCounter);
+    navigate('/win');
+  }, [win]);
+
+  useEffect(() => {
+    if (typeof timeLeft !== 'number') return;
+    if (timeLeft <= 0) navigate('/lose');
+  }, [timeLeft]);
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -136,7 +173,7 @@ function Maze({
             <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
           </StoneMazeThemeSwitch>
         ) : (
-          <StoneMazeThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
+          <StoneMazeThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type="g">
             <Player move={keyPressed?.val} skin={skin} />
           </StoneMazeThemeSwitch>
         )
@@ -150,7 +187,7 @@ function Maze({
             <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
           </BeachThemeSwitch>
         ) : (
-          <BeachThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
+          <BeachThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type="g">
             <Player move={keyPressed?.val} skin={skin} />
           </BeachThemeSwitch>
         )
@@ -164,11 +201,22 @@ function Maze({
             <Player move={keyPressed?.val} refProp={playerRef} skin={skin} />
           </CountryThemeSwitch>
         ) : (
-          <CountryThemeSwitch key={`ENTITdY${indexRow}${indexCol}`} type="g">
+          <CountryThemeSwitch key={`ENTITY${indexRow}${indexCol}`} type="g">
             <Player move={keyPressed?.val} skin={skin} />
           </CountryThemeSwitch>
         )
         )))}
+
+      {
+          // timer
+          timeLeft !== null && (
+            <div className={styles.timer}>{getTimeLeftInFormat()}</div>
+          )
+        }
+
+      {
+          loading && <div className={styles.loading}>Loading...</div>
+        }
     </div>
   );
 }
@@ -180,9 +228,11 @@ Maze.propTypes = {
   h: PropTypes.number.isRequired,
   skin: PropTypes.number,
   theme: PropTypes.number,
+  time: PropTypes.number,
 };
 
 Maze.defaultProps = {
   skin: 1,
   theme: 1,
+  time: null,
 };
