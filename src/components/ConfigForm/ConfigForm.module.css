@@ -1,0 +1,23 @@
+.configForm{
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  max-width: 600px;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+}
+
+.checkboxField{
+  grid-column: 1/-1;
+}
+.button{
+  grid-row: 6;
+  grid-column: 1/-1;
+  width: 50%;
+  margin: auto;
+}
+
+.themePicker{
+  grid-column: 1/-1;
+}

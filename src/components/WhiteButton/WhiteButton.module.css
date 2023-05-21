@@ -1,0 +1,23 @@
+.button{
+  border-radius: 8px;
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  font-family: helvetica;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button.blue{
+  background-color: white;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
+
+.button.blue:active{
+  background-color: #ababab;
+}
+
+.button.blue:hover{
+  opacity: 0.7;
+}

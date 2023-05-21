@@ -1,0 +1,11 @@
+.optionsPicker{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionsContainer{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}

@@ -1,0 +1,42 @@
+.inputTextContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.inputTextContainer label{
+    font-size: 14px;
+    color:#f4f4f4;
+    text-align: left;
+}
+
+.inputTextContainer label::first-letter{
+    text-transform: capitalize;
+}
+
+.inputTextContainer input{
+    font-size: 17px;
+    padding: 12px;
+    border: 3px solid #ffffff;
+    border-radius: 7px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    color: var(--input-color--);
+    font-size: var(--input-font-size--);
+}
+
+.inputTextContainer.error input{
+    border-color: var(--error-color--);
+}
+
+.inputTextContainer.error label{
+    color:var(--error-color--)
+}
+
+.inputTextContainer .inputError{
+    text-align: left;
+    color: var(--error-color--);
+    font-size: 15px;
+    font-weight: normal;
+}
