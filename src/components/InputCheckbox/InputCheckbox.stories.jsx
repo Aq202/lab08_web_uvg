@@ -1,7 +1,5 @@
 import React from 'react';
-import Entity from './Entity';
-// import PropTypes from 'prop-types';
-// import styles from './Template.module.css';
+import Entity from './InputCheckbox';
 
 function Template(args) {
   return (
@@ -16,7 +14,8 @@ export default {
   components: Entity,
 };
 
-export const AsPlayer = Template.bind({});
-AsPlayer.args = {
-  image: '',
+export const AsManPlayerUp = Template.bind({});
+AsManPlayerUp.args = {
+  title: 'Opción 1',
+  checked: true,
 };
