@@ -4,4 +4,6 @@ export default {
   left: 'left',
   right: 'right',
   win: 'w',
+  host: '',
+  mazeHost: '',
 };

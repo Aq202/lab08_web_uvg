@@ -16,7 +16,6 @@ function useFetch() {
         method,
         body,
         headers: {
-          'Content-Type': 'application/json',
           ...headers,
         },
         signal,

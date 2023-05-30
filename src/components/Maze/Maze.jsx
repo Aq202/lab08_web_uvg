@@ -34,7 +34,7 @@ function Maze({
 
   const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
 
-  const getMaze = (rows, cols) => callFetch({ uri: `/maze?type=json&w=${rows}&h=${cols}` });
+  const getMaze = (rows, cols) => callFetch({ uri: `https://maze.uvgenios.online/maze?type=json&w=${rows}&h=${cols}` });
 
   const mazeKeyUpHandler = (e) => {
     if (win) return;
@@ -141,12 +141,12 @@ function Maze({
   useEffect(() => {
     if (!win) return;
     clearTimeout(timeLeftCounter);
-    navigate('/win');
+    navigate(`${consts.host}/win`);
   }, [win]);
 
   useEffect(() => {
     if (typeof timeLeft !== 'number') return;
-    if (timeLeft <= 0) navigate('/lose');
+    if (timeLeft <= 0) navigate(`${consts.host}/lose`);
   }, [timeLeft]);
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

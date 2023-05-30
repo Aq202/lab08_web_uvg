@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import styles from './FinishPage.module.css';
+import consts from '../../utils/consts';
 
 function FinishPage({ title }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/config');
+    navigate(`${consts.host}/config`);
   };
   return (
     <div className={styles.finishPage}>

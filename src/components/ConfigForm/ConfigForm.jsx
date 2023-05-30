@@ -10,6 +10,7 @@ import theme1Image from '../../assets/theme1/themeImage.jpg';
 import theme2Image from '../../assets/theme2/themeImage.jpg';
 import theme3Image from '../../assets/theme3/themeImage.jpg';
 import OptionsPicker from '../OptionsPicker/OptionsPicker';
+import consts from '../../utils/consts';
 
 const skinOptions = [
   { title: 'Hombre', value: 1 },
@@ -59,7 +60,7 @@ function ConfigForm() {
 
     const params = new URLSearchParams(formCopy);
 
-    navigate(`/game?${params.toString()}`);
+    navigate(`${consts.host}/game?${params.toString()}`);
   };
 
   return (

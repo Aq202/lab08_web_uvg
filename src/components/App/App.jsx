@@ -5,16 +5,17 @@ import MazePage from '../../pages/MazePage/MazePage';
 import StartPage from '../../pages/StartPage/StartPage';
 import ConfigPage from '../../pages/ConfigPage/ConfigPage';
 import FinishPage from '../../pages/FinishPage/FinishPage';
+import consts from '../../utils/consts';
 
 function App() {
   return (
     <Router>
       <Routes>
 
-        <Route path="/game" element={<MazePage />} />
-        <Route path="/config" element={<ConfigPage />} />
-        <Route path="/win" element={<FinishPage title="¡GANASTE!" />} />
-        <Route path="/lose" element={<FinishPage title="Te quedaste sin tiempo" />} />
+        <Route path={`${consts.host}/game`} element={<MazePage />} />
+        <Route path={`${consts.host}/config`} element={<ConfigPage />} />
+        <Route path={`${consts.host}/win`} element={<FinishPage title="¡GANASTE!" />} />
+        <Route path={`${consts.host}/lose`} element={<FinishPage title="Te quedaste sin tiempo" />} />
         <Route path="*" element={<StartPage />} />
       </Routes>
     </Router>
